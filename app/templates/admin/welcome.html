@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}ZJU-ZSJ{% endblock %}
+
+{% block page_content %}
+            <h2>Welcome!</h2>
+              <br>
+              <h2>登录成功，你现在可以点击下方按钮查看和编辑文章！</h2>
+              <br>
+            <p><a href="{{ url_for('admin.article') }}" class="button special">文章</a></p>
+{% endblock %}

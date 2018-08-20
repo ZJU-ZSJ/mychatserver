@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}ZJU-ZSJ{% endblock %}
+
+{%if pagination%}
+    <div class="pagination">
+        {{ macros.pagination_widget(pagination, '.index') }}
+    </div>
+{% endif %}
+
+{% block page_content %}
+<div class="headofread hidden-xs">
+    <img src="{{ url_for('static', filename='logo.jpg') }}" alt="..." class="img-circle center-block" height="200px" width="200px">
+</div>
+<br><br>
+<div class="col-md-8 ">
+	<div class="well well-lg">
+					{% for foo in list %}
+						<section class="spotlight">
+							<div class="content">
+								<h2><strong><a href="{{ url_for('main.read' , id=foo.id) }}">{{ foo.title }}</a></strong></h2>
+								<div class="text-right">
+									<span class="label label-primary">
+									{{ foo.comments.count() }} Comments
+									</span>
+									<p>{{ foo.create_time }}|{{ foo.category.name }}</p>
+								</div>
+							</div>
+						</section>
+						<hr>
+					{% endfor %}
+	</div>
+</div>
+
+<div class="col-md-4">
+
+
+	<div class="well well-lg">
+		<div class="panel panel-default">
+		  <div class="panel-heading">分类</div>
+					<ul class="list-group">
+						{% for cate in category %}
+						  <a href="{{ url_for('main.category' , id=cate.id) }}" class="list-group-item">
+							<span class="badge">
+								{{ cate.articles.count() }}
+							</span>{{ cate.name }}
+						  </a>
+						{% endfor %}
+					</ul>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+
+
+
+

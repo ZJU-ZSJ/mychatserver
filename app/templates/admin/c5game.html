@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% block page_content %}
+    <div class="col-md-6">
+        {{ wtf.quick_form(form) }}
+    </div>
+    <div class="col-md-6">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>id</th>
+                <th>address</th>
+                <th>名字</th>
+                <th>当前价格</th>
+                <th>修改</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for foo in list %}
+                <tr>
+                    <th>{{ foo.id }}</th>
+                    <th><a href="{{ foo.address }}">前往购买</a></th>
+                    <th>{{ foo.name }}</th>
+                    <th>￥{{ foo.price }}</th>
+                    <th><a href="{{ url_for('admin.c5game_change', id=foo.id) }}" class="button small">修改</a></th>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

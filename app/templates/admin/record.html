@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}ZJU-ZSJ{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+	<h2>The local date is {{ moment(current_time).format('LL') }}.</h2>
+</div>
+<div calss="container">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>序号</th>
+            <th>评论</th>
+            <th>是否加精</th>
+            <th>创建时间</th>>
+        </tr>
+        </thead>
+        {% for result in results %}
+        <tbody>
+        <th>{{ result.id }}</th>
+        {% if result.comment_html %}
+        <th>{{ result.comment_html | safe }}</th>
+        {% else %}
+        <th>{{ result.comment }}</th>
+        {% endif %}
+        <th>{{ result.verify }}</th>
+        <th>{{ result.create_time }}</th>
+        <th>
+            <form method="POST">
+                {{ form.hidden_tag() }}
+                {{ form.submit() }}
+                <div style="display:none">{{ form.id(value=result.id) }}</div>
+                            <!-- 这里可能看不懂，我把返回id的文本框给隐藏了 -->
+            </form>
+        </th>
+        </tbody>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

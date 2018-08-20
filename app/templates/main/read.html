@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block page_content %}
+<div class="headofread hidden-xs">
+    <img src="{{ url_for('static', filename='logo.jpg') }}" alt="..." class="img-circle center-block" height="200px" width="200px">
+</div>
+<div class="page-header">
+    <strong style="font-size: 50px">{{ a.title }}</strong>
+            <hr>
+            <p>{{ a.create_time }} | {{ a.category.name }}</p>
+    <br/>
+        {% if a.body_html %}
+            {{ a.body_html | safe }}
+        {% else %}
+            {{ a.body }}
+        {% endif %}
+</div>
+
+{{ wtf.quick_form(form) }}
+<hr>
+<div class="well well-lg">
+<h2><strong>评论区</strong></h2>
+    <hr>
+    {% if a.comments.count() %}
+                    {% for comment in comments %}
+                        <div class="panel panel-default">
+                            <div class="panel-heading"><h3><strong>{{ comment.name }}</strong></h3>
+                            {% if current_user.is_authenticated %}
+                            <strong>{{ comment.email }}</strong>
+                                <a href="{{ url_for('admin.comment_del' , id=comment.id) }}"><button type="button" class="btn btn-default">
+                                  点击删除
+                                </button></a>
+                            {% endif %}
+                            </div>
+                          <div class="panel-body">
+                              <h4>{{ comment.body }}<p class="text-right">{{ comment.create_time }}</p></h4>
+                          </div>
+                        </div>
+                        <hr>
+					{% endfor %}
+    {% else %}
+        <h3>本文章还没有人评论</h3>
+    {% endif %}
+</div>
+
+{% endblock %}

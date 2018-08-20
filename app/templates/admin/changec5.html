@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+
+{% block page_content %}
+<div class="container">
+    <div class="page-header">
+        <b>名字:</b><br>{{ info.name }}<br>
+        <b>当前价格:</b><br>{{ info.price }}<br>
+        <b>链接:</b><br><a href = "{{ info.address }}">前往购买</a><br>
+        {{ wtf.quick_form(form) }}<br>
+    </div>
+</div>
+{% endblock %}
